@@ -1,19 +1,21 @@
 import bcrypt from "bcrypt"
-import User from "../models/User.js";
-const saltRounds = 10;
 
 
 // To Hash a password
 export const passwordHash = (password) => {
-    const hashedPassword = bcrypt.hashSync(password, saltRounds);
-    return hashedPassword
+    try {
+        const saltRounds = 10;
+        const hashedPassword = bcrypt.hashSync(password, saltRounds);
+        return hashedPassword
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
-
-export const comparePassword = async (data, password) => {
-    const userPasswordfromDB = data.password
-    console.log(password, userPasswordfromDB);
-    const res = bcrypt.compareSync(password, userPasswordfromDB)
+// To compare password
+export const comparePassword = async (hashedPassword, password) => {
+    const res = bcrypt.compareSync(password, hashedPassword)
     console.log(res);
     if (res) {
         return true

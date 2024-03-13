@@ -3,10 +3,13 @@ const Schema = mongoose.Schema
 
 const userSchema = new Schema(
     {
-        username: {
+        firstName: {
             type: String,
-            required: true,
-            unique: true
+            trim: true
+        },
+        lastName: {
+            type: String,
+            trim: true
         },
         password: {
             type: String,
@@ -18,16 +21,20 @@ const userSchema = new Schema(
             required: true,
             unique: true
         },
-        phoneNumber: { //Problem here
+        phoneNumber: {
             type: String,
             unique: true,
             default: null
+        },
+        role: {
+            type: String,
+            default: 0
         },
         avatar: String,
         shippingAddress: String,
         billingAddress: String,
         // Other user details
-    }
+    }, { timestamps: true }
 )
 
 const User = mongoose.model('User', userSchema)

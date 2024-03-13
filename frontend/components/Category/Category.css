@@ -1,0 +1,11 @@
+.category {
+    cursor: pointer;
+}
+
+.category:hover {
+    text-decoration: underline;
+}
+
+.category img {
+    border-radius: 50%;
+}

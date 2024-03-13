@@ -1,15 +1,20 @@
 import express from "express";
-import User from '../models/User.js'
-const app = express()
 const router = express.Router()
-import { loginController, signupController } from "../controller/userController.js";
+import { fetchAllItems, loginController, registerController, adminLoginController, registerAdminController } from "../controller/userController.js";
+import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 
 
-router.get('/', (req, res) => {
-    res.send('Hellooo...')
+router.get('/', fetchAllItems)
+router.post('/login', loginController)
+router.post('/admin/login', adminLoginController)
+router.post('/admin/register', registerAdminController)
+router.post('/register', registerController)
+
+router.post('/test', requireSignIn, isAdmin, (req, res) => {
+    res.send('Protected routes')
 })
 
-router.post('/login', loginController)
-router.post('/signup', signupController)
-
+router.all('*', (req, res) => {
+    res.status(404).send({ "message": "Route not found" })
+})
 export default router

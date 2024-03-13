@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './LoginComponent.css'
 import axios from 'axios'
-const URL = 'http://localhost:3000'
-
 
 
 const LoginComponent = () => {
@@ -27,7 +25,8 @@ const LoginComponent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${URL}/api/v1/login`, formData);
+            const response = await axios.post(`http://localhost:3000/api/v1/login`, formData);
+            console.log(URL);
             console.log(response.data.message);
             setIsLoggedIn(true)
             isLoggedIn ? redirect('/') : null
